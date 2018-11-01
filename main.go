@@ -13,7 +13,12 @@ func IsLambdaEnv() bool {
 }
 
 // IsAzureFunctionEnv checks whether code is running in an Azure Function environment
-func IsAzureFunctionEnv() {}
+func IsAzureFunctionEnv() bool {
+	if os.Getenv("WEBSITE_INSTANCE_ID") != "" { //Is there a better approach than this...?
+		return true
+	}
+	return false
+}
 
 // IsGcpFunctionEnv checks whether code is running in a Google Cloud Platform Function environment
 func IsGcpFunctionEnv() bool {
@@ -28,7 +33,7 @@ func IsKubelessEnv() {}
 
 // IsServerlessEnv checks whether code is running in a serverless environment (any platform)
 func IsServerlessEnv() bool {
-	if IsLambdaEnv() {
+	if IsLambdaEnv() || IsAzureFunctionEnv() || IsGcpFunctionEnv() {
 		return true
 	}
 	return false
