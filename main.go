@@ -16,7 +16,12 @@ func IsLambdaEnv() bool {
 func IsAzureFunctionEnv() {}
 
 // IsGcpFunctionEnv checks whether code is running in a Google Cloud Platform Function environment
-func IsGcpFunctionEnv() {}
+func IsGcpFunctionEnv() bool {
+	if os.Getenv("GCP_PROJECT") != "" { //Is there a better approach than this...?
+		return true
+	}
+	return false
+}
 
 // IsKubelessEnv checks whether code is running in a Kubless function environment
 func IsKubelessEnv() {}
