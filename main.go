@@ -28,7 +28,7 @@ func IsGcpFunctionEnv() bool {
 	return false
 }
 
-// IsKubelessEnv checks whether code is running in a Kubless function environment
+// IsKubelessEnv checks whether code is running in a Kubeless function environment
 func IsKubelessEnv() bool {
 	if os.Getenv("REQ_MB_LIMIT") != "" { //Is there a better approach than this...?
 		return true
@@ -36,9 +36,17 @@ func IsKubelessEnv() bool {
 	return false
 }
 
+// IsGoogleCloudRunEnv checks whether code is running in a Google Cloud Run container environment
+func IsGoogleCloudRunEnv() bool {
+	if os.Getenv("K_SERVICE") != "" {
+		return true
+	}
+	return false
+}
+
 // IsServerlessEnv checks whether code is running in a serverless environment (any platform)
 func IsServerlessEnv() bool {
-	if IsLambdaEnv() || IsAzureFunctionEnv() || IsGcpFunctionEnv() || IsKubelessEnv() {
+	if IsLambdaEnv() || IsAzureFunctionEnv() || IsGcpFunctionEnv() || IsKubelessEnv() || IsGoogleCloudRunEnv() {
 		return true
 	}
 	return false
