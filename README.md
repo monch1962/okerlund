@@ -1,5 +1,3 @@
 # okerlund
-Simple Go library to detect if code is running in a FaaS (AWS Lambda, GCP Function, Azure Function, Kubeless)
+Simple Go library to detect if code is running in a FaaS (AWS Lambda, GCP Function, Azure Function, Kubeless, KNative)
 
-## TODO
-- implement checks for GCP, Azure & Kubeless...

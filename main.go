@@ -36,6 +36,14 @@ func IsKubelessEnv() bool {
 	return false
 }
 
+// IsKnativeEnv checks whether code is running in a KNative function environment
+func IsKnativeEnv() bool {
+	if os.Getenv("KNATIVE_ENV_00001_SERVICE_PORT") != "" { //Is there a better approach than this...?
+		return true
+	}
+	return false
+}
+
 // IsGoogleCloudRunEnv checks whether code is running in a Google Cloud Run container environment
 func IsGoogleCloudRunEnv() bool {
 	if os.Getenv("K_SERVICE") != "" {
@@ -46,7 +54,7 @@ func IsGoogleCloudRunEnv() bool {
 
 // IsServerlessEnv checks whether code is running in a serverless environment (any platform)
 func IsServerlessEnv() bool {
-	if IsLambdaEnv() || IsAzureFunctionEnv() || IsGcpFunctionEnv() || IsKubelessEnv() || IsGoogleCloudRunEnv() {
+	if IsLambdaEnv() || IsAzureFunctionEnv() || IsGcpFunctionEnv() || IsKubelessEnv() || IsGoogleCloudRunEnv() || IsKnativeEnv() {
 		return true
 	}
 	return false
